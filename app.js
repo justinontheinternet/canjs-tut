@@ -6,7 +6,7 @@ $(function () {
   // Bind the application state to the root of the application
   $('#can-main').html(can.view('main.stache', appState));
 
-  // set up the routes
+  // Set up the routes
   can.route(':page', { page: 'home' });
   can.route(':page/:slug', { slug: null });
   can.route(':page/:slug/:action', { slug: null, action: null });
@@ -15,7 +15,7 @@ $(function () {
     ev.preventDefault();
   });
 
-  // Bind the application state to can.route
+  // Bind the application state to the can.route
   can.route.map(appState);
 
   can.route.ready();

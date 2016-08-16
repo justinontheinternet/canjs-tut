@@ -1,5 +1,5 @@
 var State = can.Model.extend({
-  findAll: 'GET /api/states'
+	findAll: 'GET /api/states'
 }, {
-  // including second, empty parameter object to instanceProperties
+	// Include second, empty parameter object to set instanceProperties
 });
