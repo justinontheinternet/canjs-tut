@@ -1,14 +1,17 @@
+{{! this is a partial that uses the header.stache file }}
 {{> header.stache}}
-
+{{! checks if :page in route is equal to 'home' }}
 {{#eq page "home"}}
   {{> home.stache}}
 {{/eq}}
 
 {{#eq page "restaurants"}}
+  {{! checks if :slug is in the route }}
   {{#if slug}}
     {{#eq action 'order'}}
       <pmo-order {(slug)}="slug"></pmo-order>
     {{/eq}}
+    {{! checks if :action IS NOT in the route }}
     {{^if action}}
       <pmo-restaurant-details {(slug)}="slug"></pmo-restaurant-details>
     {{/if}}

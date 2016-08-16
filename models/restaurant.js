@@ -1,6 +1,7 @@
 var Restaurant = can.Model.extend({
-	findAll: 'GET /api/restaurants',
-	findOne: 'GET /api/restaurants/:id'
+  // these are staticProperties. there are some reserved properties: findAll, findOne, create, update, destroy 
+  findAll: 'GET /api/restaurants',
+  findOne: 'GET /api/restaurants/:id'
 }, {
-	// Include second, empty parameter object to set instanceProperties
+  // including second, empty parameter object to set instanceProperties
 });

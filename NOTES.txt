@@ -1,0 +1,66 @@
+run 'http-server' to run on localhost:8080
+
+
+Whenever you use attr() to access a property, an event handler will be bound to that property's changes. if it is changed elsewhere in the app, the event handler is triggered and the UI is updated.
+
+  <input type="text" name="name" placeholder="Add Name" 
+        <%= contact.attr('name') ? "value='" + contact.name + "'" : "class='empty'" %>>
+
+The code in the magic tags will become an event handler bound the to contact's name property.
+
+
+
+can.Control is bound to an element. Create an instance of a Control on a DOM element and pass it data your control will need. You can define any number of functions in your Control and bind to events. When the element it is bound to is removed from the DOM, the Control destroys itself, cleaning up any bound event handlers.
+
+To create a new Control, extend can.Control(), passing it an object containing functions you want to define. Event handlers can be passed in as well.
+
+These variables and functions are present in every Control instance:
+'this' - refers to Control instance
+'this.element' - the DOM element you created the instance on
+'this.options' - an object containing any data passed to the instance when it was created
+'init()' - called when an instance is created
+
+
+
+A Model abstracts the data layer of an application. They have five static methods: findAll, findOne, create, update, destroy. They can be overwritten to work with any back-end, but easiest to use REST (as in contacts.js). You can omit any static methods that won't be used in an app.
+
+Model instances in CanJS are observables. can.Observe for objects and can.Observe.List for arrays. This means you can get and set properties using attr() and bind to changes in those properties. findAll() returns a Model.list, which is a can.Observe.List that triggers events when an element is added or removed from the list.
+
+
+
+Fixtures intercept AJAX requests and simulate their response with a file or function. Good for development.
+
+can.fixture() takes two paramerters: the URL we want to intercept and a file or function that is used to generate a response. {} in a URL will indicate a wildcard (such as {id} in contacts.js).
+
+
+
+Routing allows us to manage browser history and client state by synchronizing the 'window.location.hash' with a 'can.Map'. In other words, we use routing to reflect or set the state of our application. It records the state of the application in the browser's history. 
+
+In this application, we set up routing by:
+  - defining possible routes by calling 'can.route' (lines 10-12)
+  - binding 'appState' object to the route with a call to can.route.map
+  - set up two-way binding between 'window.location.hash' and 'can.route''s internal 'can.Map'
+
+"can.route(':page', { page: 'home' })" does two things:
+  - creates a base route that is bound to one property (page)
+  - sets the default value of the page property to 'home'
+In this app, this will allow the following URLs:
+  - "#!" (which will set page to the default 'home')
+  - "#!orders/" (which will set page to 'orders')
+  - "#!restaurants" (which will set page to 'restaurants')
+
+"can.route(':page/:slug', { slug: null })" does two things:
+  - binds a new slug property to our appState object
+  - sets default value of slug to 'null'
+This will make the following URLs possible:
+  - "#!restaurants/spago" (page will be 'restaurants' and slug will be 'spago')
+Anything in the second part of our URL will be the slug property on our appState object
+
+"can.route(':page/:slug/:action', { slug: null, action: null })" does two things:
+  - binds a new 'action' property to our appState object
+  - sets the default value of the action property to 'null'
+This will make the following URLs possible:
+  - "#!restaurants/spago/order/" (for order confirmation. action will be 'order')
+
+
+
